@@ -1,0 +1,19 @@
+syntax = "proto3";
+package events;
+
+option go_package = "github.com/Yershuaq/Asik_1_go/statistics/proto/events;events";
+
+message InventoryEvent {
+  enum Type { CREATED = 0; UPDATED = 1; DELETED = 2; }
+  Type   type    = 1;
+  string item_id = 2;
+  int64  qty     = 3;
+}
+
+message OrderEvent {
+  enum Type { CREATED = 0; UPDATED = 1; DELETED = 2; }
+  Type   type       = 1;
+  string order_id  = 2;
+  string user_id   = 3;
+  int64  total     = 4;
+}

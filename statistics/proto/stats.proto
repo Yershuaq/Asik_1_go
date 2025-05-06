@@ -1,0 +1,11 @@
+syntax = "proto3";
+package stats;
+
+option go_package = "github.com/Yershuaq/Asik_1_go/statistics/proto/stats;stats";
+
+service StatsService {
+  rpc GetStats (StatsRequest) returns (StatsResponse);
+}
+
+message StatsRequest  { string user_id = 1; }
+message StatsResponse { int64 totalOrders = 1; int64 totalItems = 2; }

@@ -4,14 +4,12 @@ import (
 	"time"
 )
 
-// OrderItem представляет собой элемент заказа
 type OrderItem struct {
 	ProductID string  `json:"product_id" bson:"product_id"`
 	Quantity  int     `json:"quantity" bson:"quantity"`
 	Price     float64 `json:"price" bson:"price"`
 }
 
-// Order представляет собой сущность заказа
 type Order struct {
 	ID        string      `json:"id" bson:"_id,omitempty"`
 	UserID    string      `json:"user_id" bson:"user_id"`
@@ -22,7 +20,6 @@ type Order struct {
 	UpdatedAt time.Time   `json:"updated_at" bson:"updated_at"`
 }
 
-// OrderRepository определяет интерфейс для работы с хранилищем заказов
 type OrderRepository interface {
 	Create(order *Order) error
 	FindByID(id string) (*Order, error)

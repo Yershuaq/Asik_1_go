@@ -1,4 +1,4 @@
-module github.com/your-username/ecommerce/inventory-service
+module ecommerce/inventory-service
 
 go 1.21
 

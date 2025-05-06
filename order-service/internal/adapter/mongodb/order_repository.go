@@ -4,25 +4,22 @@ import (
 	"context"
 	"time"
 
-	"github.com/your-username/ecommerce/order-service/internal/entity"
+	"github.com/Yershuaq/ecommerce/order-service/internal/entity"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// OrderRepository реализует интерфейс OrderRepository для MongoDB
 type OrderRepository struct {
 	collection *mongo.Collection
 }
 
-// NewOrderRepository создает новый экземпляр OrderRepository
 func NewOrderRepository(db *mongo.Database) *OrderRepository {
 	return &OrderRepository{
 		collection: db.Collection("orders"),
 	}
 }
 
-// Create создает новый заказ в базе данных
 func (r *OrderRepository) Create(order *entity.Order) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -31,7 +28,6 @@ func (r *OrderRepository) Create(order *entity.Order) error {
 	return err
 }
 
-// FindByID находит заказ по ID
 func (r *OrderRepository) FindByID(id string) (*entity.Order, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -50,7 +46,6 @@ func (r *OrderRepository) FindByID(id string) (*entity.Order, error) {
 	return &order, nil
 }
 
-// Update обновляет информацию о заказе
 func (r *OrderRepository) Update(order *entity.Order) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -64,7 +59,6 @@ func (r *OrderRepository) Update(order *entity.Order) error {
 	return err
 }
 
-// Delete удаляет заказ
 func (r *OrderRepository) Delete(id string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -78,7 +72,6 @@ func (r *OrderRepository) Delete(id string) error {
 	return err
 }
 
-// FindAll возвращает список всех заказов
 func (r *OrderRepository) FindAll() ([]*entity.Order, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -97,7 +90,6 @@ func (r *OrderRepository) FindAll() ([]*entity.Order, error) {
 	return orders, nil
 }
 
-// FindByUserID возвращает список заказов пользователя
 func (r *OrderRepository) FindByUserID(userID string) ([]*entity.Order, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()

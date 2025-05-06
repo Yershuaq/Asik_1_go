@@ -2,64 +2,59 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
-	// Загрузка переменных окружения
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Ошибка загрузки .env файла")
+		log.Fatal("Error loading .env file")
 	}
 
-	// Инициализация роутера
+	// gRPC connections
+	inventoryConn, err := grpc.Dial(os.Getenv("INVENTORY_SERVICE_ADDR"), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("Failed to connect to inventory service: %v", err)
+	}
+	defer inventoryConn.Close()
+
+	orderConn, err := grpc.Dial(os.Getenv("ORDER_SERVICE_ADDR"), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("Failed to connect to order service: %v", err)
+	}
+	defer orderConn.Close()
+
+	// Create gRPC clients
+	inventoryClient := inventory.NewInventoryServiceClient(inventoryConn)
+	orderClient := order.NewOrderServiceClient(orderConn)
+
+	// Create handlers
+	inventoryHandler := http.NewInventoryHandler(inventoryClient)
+	orderHandler := http.NewOrderHandler(orderClient)
+
+	// Setup router
 	r := gin.Default()
 
-	// Настройка маршрутов
-	setupRoutes(r)
+	// Inventory routes
+	r.POST("/products", inventoryHandler.CreateProduct)
+	r.GET("/products/:id", inventoryHandler.GetProductByID)
+	r.PUT("/products/:id", inventoryHandler.UpdateProduct)
+	r.DELETE("/products/:id", inventoryHandler.DeleteProduct)
+	r.GET("/products", inventoryHandler.ListProducts)
 
-	// Запуск сервера
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
+	// Order routes
+	r.POST("/orders", orderHandler.CreateOrder)
+	r.GET("/orders/:id", orderHandler.GetOrderByID)
+	r.PUT("/orders/:id/status", orderHandler.UpdateOrderStatus)
+	r.GET("/orders", orderHandler.ListUserOrders)
+
+	// Start server
+	if err := r.Run(":8080"); err != nil {
+		log.Fatal(err)
 	}
-
-	if err := r.Run(":" + port); err != nil {
-		log.Fatalf("Ошибка запуска сервера: %v", err)
-	}
-}
-
-func setupRoutes(r *gin.Engine) {
-	// Маршруты для товаров
-	products := r.Group("/api/products")
-	{
-		products.POST("", proxyToInventoryService)
-		products.GET("", proxyToInventoryService)
-		products.GET("/:id", proxyToInventoryService)
-		products.PUT("/:id", proxyToInventoryService)
-		products.DELETE("/:id", proxyToInventoryService)
-	}
-
-	// Маршруты для заказов
-	orders := r.Group("/api/orders")
-	{
-		orders.POST("", proxyToOrderService)
-		orders.GET("", proxyToOrderService)
-		orders.GET("/:id", proxyToOrderService)
-		orders.PUT("/:id", proxyToOrderService)
-		orders.DELETE("/:id", proxyToOrderService)
-		orders.GET("/user/:user_id", proxyToOrderService)
-	}
-}
-
-func proxyToInventoryService(c *gin.Context) {
-	// TODO: Реализовать проксирование запросов к inventory-service
-	c.JSON(501, gin.H{"error": "Not implemented"})
-}
-
-func proxyToOrderService(c *gin.Context) {
-	// TODO: Реализовать проксирование запросов к order-service
-	c.JSON(501, gin.H{"error": "Not implemented"})
 }

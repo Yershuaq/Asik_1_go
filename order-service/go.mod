@@ -1,4 +1,4 @@
-module github.com/your-username/ecommerce/order-service
+module ecommerce/order-service
 
 go 1.21
 

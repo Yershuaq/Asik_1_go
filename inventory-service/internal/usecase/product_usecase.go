@@ -2,45 +2,37 @@ package usecase
 
 import (
 	"context"
-	"time"
 
-	"github.com/your-username/ecommerce/inventory-service/internal/entity"
+	"github.com/Yershuaq/ecommerce/inventory-service/internal/entity"
+	"github.com/Yershuaq/ecommerce/inventory-service/internal/repository"
 )
 
-// ProductUseCase реализует бизнес-логику работы с товарами
 type ProductUseCase struct {
-	repo entity.ProductRepository
+	productRepo repository.ProductRepository
 }
 
-// NewProductUseCase создает новый экземпляр ProductUseCase
-func NewProductUseCase(repo entity.ProductRepository) *ProductUseCase {
-	return &ProductUseCase{repo: repo}
+func NewProductUseCase(productRepo repository.ProductRepository) *ProductUseCase {
+	return &ProductUseCase{
+		productRepo: productRepo,
+	}
 }
 
-// CreateProduct создает новый товар
 func (uc *ProductUseCase) CreateProduct(ctx context.Context, product *entity.Product) error {
-	product.CreatedAt = time.Now()
-	product.UpdatedAt = time.Now()
-	return uc.repo.Create(product)
+	return uc.productRepo.Create(ctx, product)
 }
 
-// GetProductByID возвращает товар по ID
 func (uc *ProductUseCase) GetProductByID(ctx context.Context, id string) (*entity.Product, error) {
-	return uc.repo.FindByID(id)
+	return uc.productRepo.GetByID(ctx, id)
 }
 
-// UpdateProduct обновляет информацию о товаре
 func (uc *ProductUseCase) UpdateProduct(ctx context.Context, product *entity.Product) error {
-	product.UpdatedAt = time.Now()
-	return uc.repo.Update(product)
+	return uc.productRepo.Update(ctx, product)
 }
 
-// DeleteProduct удаляет товар
 func (uc *ProductUseCase) DeleteProduct(ctx context.Context, id string) error {
-	return uc.repo.Delete(id)
+	return uc.productRepo.Delete(ctx, id)
 }
 
-// GetAllProducts возвращает список всех товаров
-func (uc *ProductUseCase) GetAllProducts(ctx context.Context) ([]*entity.Product, error) {
-	return uc.repo.FindAll()
+func (uc *ProductUseCase) ListProducts(ctx context.Context, page, limit int32) ([]*entity.Product, int32, error) {
+	return uc.productRepo.List(ctx, page, limit)
 }

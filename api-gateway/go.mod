@@ -1,4 +1,4 @@
-module github.com/your-username/ecommerce/api-gateway
+module ecommerce/api-gateway
 
 go 1.21
 

@@ -3,24 +3,21 @@ package http
 import (
 	"net/http"
 
+	"github.com/Yershuaq/ecommerce/order-service/internal/entity"
+	"github.com/Yershuaq/ecommerce/order-service/internal/usecase"
 	"github.com/gin-gonic/gin"
-	"github.com/your-username/ecommerce/order-service/internal/entity"
-	"github.com/your-username/ecommerce/order-service/internal/usecase"
 )
 
-// OrderHandler обрабатывает HTTP-запросы для заказов
 type OrderHandler struct {
 	orderUseCase *usecase.OrderUseCase
 }
 
-// NewOrderHandler создает новый экземпляр OrderHandler
 func NewOrderHandler(orderUseCase *usecase.OrderUseCase) *OrderHandler {
 	return &OrderHandler{
 		orderUseCase: orderUseCase,
 	}
 }
 
-// CreateOrder обрабатывает запрос на создание заказа
 func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	var order entity.Order
 	if err := c.ShouldBindJSON(&order); err != nil {
@@ -36,7 +33,6 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	c.JSON(http.StatusCreated, order)
 }
 
-// GetOrder обрабатывает запрос на получение заказа
 func (h *OrderHandler) GetOrder(c *gin.Context) {
 	id := c.Param("id")
 	order, err := h.orderUseCase.GetOrderByID(c.Request.Context(), id)
@@ -48,7 +44,6 @@ func (h *OrderHandler) GetOrder(c *gin.Context) {
 	c.JSON(http.StatusOK, order)
 }
 
-// UpdateOrder обрабатывает запрос на обновление заказа
 func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 	id := c.Param("id")
 	var order entity.Order
@@ -66,7 +61,6 @@ func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 	c.JSON(http.StatusOK, order)
 }
 
-// DeleteOrder обрабатывает запрос на удаление заказа
 func (h *OrderHandler) DeleteOrder(c *gin.Context) {
 	id := c.Param("id")
 	if err := h.orderUseCase.DeleteOrder(c.Request.Context(), id); err != nil {
@@ -77,7 +71,6 @@ func (h *OrderHandler) DeleteOrder(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// GetAllOrders обрабатывает запрос на получение всех заказов
 func (h *OrderHandler) GetAllOrders(c *gin.Context) {
 	orders, err := h.orderUseCase.GetAllOrders(c.Request.Context())
 	if err != nil {
@@ -88,7 +81,6 @@ func (h *OrderHandler) GetAllOrders(c *gin.Context) {
 	c.JSON(http.StatusOK, orders)
 }
 
-// GetOrdersByUserID обрабатывает запрос на получение заказов пользователя
 func (h *OrderHandler) GetOrdersByUserID(c *gin.Context) {
 	userID := c.Param("user_id")
 	orders, err := h.orderUseCase.GetOrdersByUserID(c.Request.Context(), userID)

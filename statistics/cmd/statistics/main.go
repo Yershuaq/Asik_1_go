@@ -6,7 +6,7 @@ import (
 
 	"github.com/Yershuaq/Asik_1_go/statistics/internal/adapter/db"
 	grpcAdapter "github.com/Yershuaq/Asik_1_go/statistics/internal/adapter/grpc"
-	"github.com/Yershuaq/Asik_1_go/statistics/internal/adapter/nats"
+	natsAdapter "github.com/Yershuaq/Asik_1_go/statistics/internal/adapter/nats"
 	"github.com/Yershuaq/Asik_1_go/statistics/internal/usecase"
 	"github.com/nats-io/nats.go"
 )
@@ -28,7 +28,7 @@ func main() {
 	uc := usecase.New(repo)
 
 	// 4. Запускаем NATS‑подписчика
-	if err := nats.Start(nc, uc); err != nil {
+	if err := natsAdapter.Start(nc, uc); err != nil {
 		log.Fatal("NATS subscribe:", err)
 	}
 

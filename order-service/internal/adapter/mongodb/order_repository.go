@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/Yershuaq/ecommerce/order-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/order-service/internal/entity"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

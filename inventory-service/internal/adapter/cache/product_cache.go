@@ -2,7 +2,7 @@ package cache
 
 import (
 	"fmt"
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/entity"
 	"github.com/patrickmn/go-cache"
 	"log"
 	"strings"

@@ -3,7 +3,7 @@ package mongodb
 import (
 	"context"
 
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/entity"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

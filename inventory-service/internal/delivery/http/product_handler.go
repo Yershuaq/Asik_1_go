@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/entity"
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/usecase"
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/usecase"
 	"github.com/gin-gonic/gin"
 )
 

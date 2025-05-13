@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/Yershuaq/ecommerce/order-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/order-service/internal/entity"
 )
 
 type OrderUseCase struct {

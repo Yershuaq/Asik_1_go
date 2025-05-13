@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"context"
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/adapter/cache" // Импортируем адаптер кэша
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/entity"
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/repository" // Предполагается, что у вас есть интерфейс репозитория
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/adapter/cache" // Импортируем адаптер кэша
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/entity"
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/repository" // Предполагается, что у вас есть интерфейс репозитория
 	"log"
 )
 

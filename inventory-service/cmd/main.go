@@ -8,11 +8,11 @@ import (
 	"time" // Добавляем импорт time
 
 	// Другие импорты...
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/adapter/cache" // Импорт адаптера кэша
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/adapter/mongodb"
-	deliveryGRPC "github.com/Yershuaq/ecommerce/inventory-service/internal/delivery/grpc" // Переименовал импорт во избежание конфликта
-	"github.com/Yershuaq/ecommerce/inventory-service/internal/usecase"
-	inventory "github.com/Yershuaq/ecommerce/inventory-service/proto" // Предполагается, что proto лежит здесь
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/adapter/cache" // Импорт адаптера кэша
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/adapter/mongodb"
+	deliveryGRPC "github.com/Yershuaq/Asik_1_go/inventory-service/internal/delivery/grpc" // Переименовал импорт во избежание конфликта
+	"github.com/Yershuaq/Asik_1_go/inventory-service/internal/usecase"
+	inventory "github.com/Yershuaq/Asik_1_go/inventory-service/proto" // Предполагается, что proto лежит здесь
 
 	// gRPC и MongoDB импорты...
 	"github.com/joho/godotenv"

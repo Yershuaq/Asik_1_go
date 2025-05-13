@@ -11,9 +11,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/Yershuaq/ecommerce/order-service/internal/adapter/mongodb"
-	"github.com/Yershuaq/ecommerce/order-service/internal/delivery/http"
-	"github.com/Yershuaq/ecommerce/order-service/internal/usecase"
+	"github.com/Yershuaq/Asik_1_go/order-service/internal/adapter/mongodb"
+	"github.com/Yershuaq/Asik_1_go/order-service/internal/delivery/http"
+	"github.com/Yershuaq/Asik_1_go/order-service/internal/usecase"
 )
 
 func main() {
